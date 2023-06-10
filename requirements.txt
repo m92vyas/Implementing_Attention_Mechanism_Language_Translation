@@ -1,0 +1,6 @@
+pandas
+numpy
+scikit-learn
+tensorflow
+tensorflow-addons
+-e .
