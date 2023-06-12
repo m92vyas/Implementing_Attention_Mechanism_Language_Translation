@@ -19,9 +19,12 @@ class TranslationModel(tf.keras.Model):
 
   def get_config(self):
     config = super().get_config()
-    config.update({'encoder_inputs_length': self.encoder_inputs_length, 'decoder_inputs_length': self.decoder_inputs_length,
-        'vocab_size_ita': self.vocab_size_ita, 'vocab_size_eng': self.vocab_size_eng, 'embedding_dim_enc': self.embedding_dim_enc,
-        'embedding_dim_dec': self.embedding_dim_dec , 'enc_units': self.enc_units, 'dec_units': self.dec_units, 'att_units': self.att_units})
+    config.update({'encoder_inputs_length': self.encoder_inputs_length,
+        'decoder_inputs_length': self.decoder_inputs_length, 'vocab_size_ita': self.vocab_size_ita,
+        'vocab_size_eng': self.vocab_size_eng, 'embedding_dim_enc': self.embedding_dim_enc,
+        'embedding_dim_dec': self.embedding_dim_dec , 'enc_units': self.enc_units,
+        'dec_units': self.dec_units, 'lstm_dropout': self.lstm_dropout,
+        'recurrent_dropout':self.recurrent_dropout})
     return config
 
   def build(self,input_shapes):
@@ -29,7 +32,8 @@ class TranslationModel(tf.keras.Model):
                         self.encoder_inputs_length, self.enc_units,self.lstm_dropout,
                         self.recurrent_dropout)
       self.decoder = decoder_custom_tf_layer.DecoderBlock(self.vocab_size_eng+1, self.embedding_dim_dec,
-                        self.decoder_inputs_length, self.lstm_dropout,self.recurrent_dropout)
+                        self.decoder_inputs_length, self.dec_units, self.lstm_dropout,
+                        self.recurrent_dropout)
       
   def call(self, data):
       input,output = data[0], data[1]

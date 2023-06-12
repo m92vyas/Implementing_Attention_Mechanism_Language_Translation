@@ -17,7 +17,8 @@ class DecoderBlock(tf.keras.Model):
     config = super().get_config()
     config.update({
         'out_vocab_size': self.out_vocab_size, 'embedding_dim_dec': self.embedding_dim_dec,
-        'input_length': self.input_length, 'dec_units': self.dec_units})
+        'input_length': self.input_length, 'dec_units': self.dec_units,
+        'lstm_dropout': self.lstm_dropout, 'recurrent_dropout':self.recurrent_dropout})
     return config
 
   def build(self,input_shapes):

@@ -16,7 +16,8 @@ class Encoder(tf.keras.layers.Layer):
     def get_config(self):
       config = super().get_config()
       config.update({'vocab_size': self.vocab_size, 'embedding_dim_enc': self.embedding_dim_enc,\
-                     'input_length': self.input_length, 'enc_units': self.enc_units})
+                     'input_length': self.input_length, 'enc_units': self.enc_units,
+                     'lstm_dropout': self.lstm_dropout, 'recurrent_dropout':self.recurrent_dropout})
       return config
 
     def build(self, input_shape):
