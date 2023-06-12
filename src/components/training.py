@@ -1,7 +1,17 @@
 from src.components import dataset_loader, model_attn, custom_loss_function, callbacks
 import training_parameters as param
+from src.utils import save_object
 import pandas as pd
 import tensorflow as tf
+import os
+from dataclasses import dataclass
+
+
+@dataclass
+class TokenizerConfig:
+    tknizer_ita_path: str=os.path.join('artifacts','tokenizer','ita.pkl')
+    tknizer_eng_path: str=os.path.join('artifacts','tokenizer','eng.pkl')
+    
 
 class ModelTraining():
   
@@ -15,6 +25,9 @@ class ModelTraining():
     self.batch_size = batch_size
     
     tknizer_ita, tknizer_eng = dataset_loader.tokenizer_ita_eng(train_set_path)
+    save_object(self.tokenizerconfig.tknizer_ita_path , tknizer_ita)
+    save_object(self.tokenizerconfig.tknizer_eng_path , tknizer_eng)
+
     self.vocab_size_eng=len(tknizer_eng.word_index.keys())
     self.vocab_size_ita=len(tknizer_ita.word_index.keys())
 
@@ -29,7 +42,7 @@ class ModelTraining():
     train_steps=self.train.shape[0]//self.batch_size
     valid_steps=self.val.shape[0]//self.batch_size
     
-    mdl  = model_attn.TranslationModel(param.encoder_inputs_length, param.decoder_inputs_length, self.vocab_size_ita,\
+    mdl  = translation_model(param.encoder_inputs_length, param.decoder_inputs_length, self.vocab_size_ita,\
                              self.vocab_size_eng, param.embedding_dim_enc, param.embedding_dim_dec,\
                              param.enc_units, param.dec_units, param.lstm_dropout, param.recurrent_dropout)
 
