@@ -7,7 +7,7 @@ from dataclasses import dataclass
 @dataclass
 class CallbackConfig:
     tensorboard_log_dir: str=os.path.join('artifacts',"logs",'model','fits', datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-    model_save_path = 'artifacts/model.{epoch:02d}-{masked_acc:.4f}.h5'
+    model_save_path = 'artifacts/saved_model/model.{epoch:02d}-{masked_acc:.4f}.h5'
 
 
 class PrepareCallback:
