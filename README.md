@@ -12,11 +12,13 @@
   ref: https://guillaumegenthial.github.io/sequence-to-sequence.html
 
 ## Encoder Layer:
-  - Italian tokens were embedded to vectors as per given dimensions using embedding layer. Output dimensions: [batch, max_len, embed-size]
-  - Individual LSTM output are used to get cross attention score in further layer. LSTM output dimensions: [batch, max_len, lstm-units]
+  - Italian tokens were embedded to vectors as per given dimensions using embedding layer.
+  - Output dimensions: [batch, max_len, embed-size]
+  - Individual LSTM output are used to get cross attention score in further layers.
+  - LSTM output dimensions: [batch, max_len, lstm-units]
  
 ## Attention Mechanism Layer:
-  - Decoder input is transformed to match encoder output dimensions and attention weights are calculated based on similarity using dot 
+  - Decoder input is transformed to match encoder output dimensions and attention weights are calculated based on similarity score using dot 
     products and weighted sum of encoder hidden state vector is returned as context vector to be used by decoder.
   - Context vector dimensions: [batch,encoder_lstm_units]
   - Attention weights dimensions: [batch,max_len,1]
