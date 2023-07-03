@@ -2,7 +2,7 @@
 
 ## Introduction:
 - We have 362861 rows of Italian to English translated sentences as raw data.
-- Appropriate Preprocesing was done. Input english sentences(related to decoder block) were appended by 'start' and output decoder sentences were appended with 'end' token.
+- Appropriate preprocessing was done. Input english sentences(related to decoder block) were appended by 'start' and output decoder sentences were appended with 'end' token.
   
 |italian                    |english_inp                           |english_out                         |
 |---------------------------|--------------------------------------|------------------------------------|
@@ -18,5 +18,12 @@
 
   ## Encoder Layer:
   - Italian tokens were embedded to vectors as per given dimensions using embedding layer. Output dimensions: [batch, max_len, embed-size]
+  - Individual LSTM output are used to get cross attention score in further layer. LSTM output dimensions: [batch, max_len, lstm-units]
+ 
+  ## Attention Mechanism Layer:
+  - Decoder input is transformed to match encoder output dimensions and attention weights are calculated based on similarity using dot 
+    products and weighted sum of encoder hidden state vector is returned as context vector to be used by decoder.
+    Context vector dimensions: [batch,encoder_lstm_units]
+    attention weights dimensions: [batch,max_len,1]
   
 
