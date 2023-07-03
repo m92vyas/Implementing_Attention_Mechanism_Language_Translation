@@ -23,7 +23,18 @@
   ## Attention Mechanism Layer:
   - Decoder input is transformed to match encoder output dimensions and attention weights are calculated based on similarity using dot 
     products and weighted sum of encoder hidden state vector is returned as context vector to be used by decoder.
-    Context vector dimensions: [batch,encoder_lstm_units]
-    attention weights dimensions: [batch,max_len,1]
+  - Context vector dimensions: [batch,encoder_lstm_units]
+  - Attention weights dimensions: [batch,max_len,1]
+
+  ## Decoder Encoder Cross Attention Layer:
+  - It performs cross attention between embedded decoder input(can be glove vectors) and embedded encoder input using previous attention 
+    mechanism layer, concatanate the attention updated/weighted decoder input with embedded decoder input and pass it to to lstm layer. 
+    Then to dense layer having units equal to output vocab size. The decoder input is passeed one word at a time over batch(matrix form) 
+    i.e. cross attention is performed one embedded token at a time over whole batch.
+  - Final output dimensions: [batch,tar_vocab_size]
+ 
+  ## Decoder Layer:
+  - It performs cross attention using Decoder Encoder Cross Attention Layer and gives logits values for full decoder input length.
+  - Final Logits output shape: [batch,max_len,tar_vocab_size]
   
 
